@@ -1,29 +1,58 @@
 import React from "react";
+import { useUrl } from "../context/UrlContext";
+import axios from "axios";
 
 function ContentFooter() {
+  const { todos, setTodos, filter, setFilter, url } = useUrl();
+
+  const allDelete = () => {
+    axios.get(url).then((res) => {
+      const filteredTodos = todos?.filter((todo) => !todo.completed);
+      setTodos(filteredTodos);
+    });
+  };
+
   return (
     <div>
       <footer className="footer">
         <span className="todo-count">
-          <strong>2</strong>
-          items left
+          <strong>{todos?.length} </strong>
+          {todos?.length < 2 ? "item" : "items"} left
         </span>
 
         <ul className="filters">
           <li>
-            <a href="#/" className="selected">
+            <a
+              href="#/"
+              onClick={() => setFilter("all")}
+              className={filter === "all" ? "selected" : ""}
+            >
               All
             </a>
           </li>
           <li>
-            <a href="#/">Active</a>
+            <a
+              href="#/"
+              onClick={() => setFilter("active")}
+              className={filter === "active" ? "selected" : ""}
+            >
+              Active
+            </a>
           </li>
           <li>
-            <a href="#/">Completed</a>
+            <a
+              href="#/"
+              onClick={() => setFilter("completed")}
+              className={filter === "completed" ? "selected" : ""}
+            >
+              Completed
+            </a>
           </li>
         </ul>
 
-        <button className="clear-completed">Clear completed</button>
+        <button onClick={allDelete} className="clear-completed">
+          Clear completed
+        </button>
       </footer>
     </div>
   );

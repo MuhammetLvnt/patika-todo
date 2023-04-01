@@ -5,6 +5,7 @@ const UrlContext = createContext();
 
 export const UrlContextProvider = ({ children }) => {
   const [todos, setTodos] = useState();
+  const [filter, setFilter] = useState("all");
 
   const url =
     "https://us-central1-todo-app-4f938.cloudfunctions.net/app/api/v1/todo";
@@ -19,6 +20,8 @@ export const UrlContextProvider = ({ children }) => {
     todos,
     setTodos,
     url,
+    filter,
+    setFilter,
   };
   return <UrlContext.Provider value={values}>{children}</UrlContext.Provider>;
 };
