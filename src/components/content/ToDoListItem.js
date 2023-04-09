@@ -100,7 +100,7 @@ function ToDoListItem({ todo }) {
                       handleUpdate(
                         todo._id,
                         text,
-                        !todo.completed,
+                        todo.completed,
                         setModal,
                         modal
                       )
